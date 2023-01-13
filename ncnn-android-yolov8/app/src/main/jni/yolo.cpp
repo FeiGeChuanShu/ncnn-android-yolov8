@@ -152,15 +152,15 @@ static void generate_proposals(std::vector<GridAndStride> grid_strides, const nc
         float score = -FLT_MAX;
         for (int k = 0; k < num_class; k++)
         {
-            float confidence = sigmoid(scores[k]);
+            float confidence = scores[k];
             if (confidence > score)
             {
                 label = k;
                 score = confidence;
             }
         }
-        
-        if (score >= prob_threshold)
+        float box_prob = sigmoid(score);
+        if (box_prob >= prob_threshold)
         {
             ncnn::Mat bbox_pred(reg_max_1, 4, (void*)pred.row(i));
             {

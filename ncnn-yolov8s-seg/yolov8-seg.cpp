@@ -263,7 +263,6 @@ static void generate_proposals(std::vector<GridAndStride> grid_strides, const nc
 
     for (int i = 0; i < num_points; i++)
     {
-
             const float* scores = pred.row(i) + 4 * reg_max_1;
 
             // find label with max score
@@ -271,15 +270,15 @@ static void generate_proposals(std::vector<GridAndStride> grid_strides, const nc
             float score = -FLT_MAX;
             for (int k = 0; k < num_class; k++)
             {
-                float confidence = sigmoid(scores[k]);
+                float confidence = scores[k];
                 if (confidence > score)
                 {
                     label = k;
                     score = confidence;
                 }
             }
-            
-            if (score >= prob_threshold)
+            float box_prob = sigmoid(score);
+            if (box_prob >= prob_threshold)
             {
                 ncnn::Mat bbox_pred(reg_max_1, 4, (void*)pred.row(i));
                 {
@@ -365,8 +364,8 @@ static void decode_mask(const ncnn::Mat& mask_feat, const int& img_w, const int&
     matmul(std::vector<ncnn::Mat>{mask_feat, mask_proto}, masks);
     sigmoid(masks);
     reshape(masks, masks, masks.h, in_pad.h / 4, in_pad.w / 4, 0);
-    slice(masks, mask_pred_result, (wpad / 2)/4, (in_pad.w - wpad / 2)/4, 2);
-    slice(mask_pred_result, mask_pred_result, (hpad / 2)/4, (in_pad.h - hpad / 2)/4, 1);
+    slice(masks, mask_pred_result, (wpad / 2) / 4, (in_pad.w - wpad / 2) / 4, 2);
+    slice(mask_pred_result, mask_pred_result, (hpad / 2) / 4, (in_pad.h - hpad / 2) / 4, 1);
     interp(mask_pred_result, 4.0, img_w, img_h, mask_pred_result);
 
 }
@@ -622,7 +621,7 @@ static void draw_objects(const cv::Mat& bgr, const std::vector<Object>& objects)
         cv::putText(image, text, cv::Point(x, y + label_size.height),
                     cv::FONT_HERSHEY_SIMPLEX, 0.5, cv::Scalar(0, 0, 0));
     }
-    cv::imwrite("i.jpg", image);
+
     cv::imshow("image", image);
     cv::waitKey(0);
 }

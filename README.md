@@ -2,7 +2,7 @@
 
 The yolov8 object detection and segmentation
 
-1.Android yolov8 detection demo
+1.Android yolov8 detection demo  
 2.yolov8s-seg.cpp
 
 ## screenshot

@@ -329,7 +329,7 @@ static void generate_proposals(std::vector<GridAndStride> grid_strides, const nc
                 obj.rect.width = x1 - x0;
                 obj.rect.height = y1 - y0;
                 obj.label = label;
-                obj.prob = score;
+                obj.prob = box_prob;
                 obj.mask_feat.resize(32);
                 std::copy(pred.row(i) + 64 + num_class, pred.row(i) + 64 + num_class + 32, obj.mask_feat.begin());
                 objects.push_back(obj);

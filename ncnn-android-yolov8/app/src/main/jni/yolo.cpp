@@ -211,7 +211,7 @@ static void generate_proposals(std::vector<GridAndStride> grid_strides, const nc
             obj.rect.width = x1 - x0;
             obj.rect.height = y1 - y0;
             obj.label = label;
-            obj.prob = score;
+            obj.prob = box_prob;
 
             objects.push_back(obj);
         }

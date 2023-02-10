@@ -1,4 +1,4 @@
-#include "net.h"
+#include "ncnn/net.h"
 
 #if defined(USE_NCNN_SIMPLEOCV)
 #include "simpleocv.h"
@@ -373,8 +373,8 @@ static int detect_yolov8(const cv::Mat& bgr, std::vector<Object>& objects)
 {
     ncnn::Net yolov8;
 
-    yolov8.load_param("v8s-seg.param");
-    yolov8.load_model("v8s-seg.bin");
+    yolov8.load_param("models/yolov8s-seg.param");
+    yolov8.load_model("models/yolov8s-seg.bin");
 
     int width = bgr.cols;
     int height = bgr.rows;

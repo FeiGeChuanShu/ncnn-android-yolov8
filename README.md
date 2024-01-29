@@ -4,6 +4,7 @@ The yolov8 object detection and segmentation
 
 1.Android yolov8 detection demo  
 2.yolov8s-seg.cpp
+3.yolov8s-obb.cpp
 
 ## convert to onnx for ncnn
 1.change c2f split to slice  
@@ -16,6 +17,7 @@ The yolov8 object detection and segmentation
 ## screenshot
 ![](./ncnn-android-yolov8/screenshot.png)
 ![](yolov8s-seg.jpg)
+![](yolov8s-obb.jpg)
 ## Reference：  
 https://github.com/nihui/ncnn-android-nanodet  
 https://github.com/Tencent/ncnn  
